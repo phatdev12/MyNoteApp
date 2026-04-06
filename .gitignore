@@ -1,0 +1,36 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.aab
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+local.properties
+captures/
+
+# Firebase
+google-services.json
+firebase-debug.log
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Other
+*.log
+*.swp
+*.swo
+*~
+.classpath
+.c9/
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+.env.*.local

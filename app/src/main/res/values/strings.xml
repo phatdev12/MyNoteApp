@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyNoteApp</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Authentication -->
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="logout_button">Logout</string>
+    
+    <!-- Note Management -->
+    <string name="add_note">Add Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="save_note">Save Note</string>
+    <string name="cancel">Cancel</string>
+    <string name="note_title_hint">Note Title</string>
+    <string name="note_description_hint">Note Description</string>
+    
+    <!-- Messages -->
+    <string name="welcome">Welcome</string>
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="no_notes">No notes available</string>
+    
+</resources>
