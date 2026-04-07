@@ -17,8 +17,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MyNoteApp">
 
+        <!-- Compose Activities (UI bằng Kotlin) -->
         <activity
-                android:name=".ui.activities.SplashActivity"
+                android:name=".ui.activities.ComposeLoginActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,26 +28,22 @@
         </activity>
 
         <activity
-                android:name=".ui.activities.LoginActivity"
-                android:exported="true" />
+                android:name=".ui.activities.ComposeRegisterActivity"
+                android:exported="false" />
 
         <activity
-                android:name=".ui.activities.RegisterActivity"
-                android:exported="true" />
+                android:name=".ui.activities.ComposeMainActivity"
+                android:exported="false" />
 
         <activity
-                android:name=".ui.activities.MainActivity"
-                android:exported="true" />
+                android:name=".ui.activities.ComposeNoteDetailActivity"
+                android:exported="false"
+                android:parentActivityName=".ui.activities.ComposeMainActivity" />
 
         <activity
-                android:name=".ui.activities.NoteDetailActivity"
-                android:exported="true"
-                android:parentActivityName=".ui.activities.MainActivity" />
-
-        <activity
-                android:name=".ui.activities.ProfileActivity"
-                android:exported="true"
-                android:parentActivityName=".ui.activities.MainActivity" />
+                android:name=".ui.activities.ComposeProfileActivity"
+                android:exported="false"
+                android:parentActivityName=".ui.activities.ComposeMainActivity" />
 
         <provider
                 android:name="androidx.core.content.FileProvider"

@@ -191,7 +191,6 @@ class FirebaseRepository(private val context: Context) {
                     .get()
                     .await()
             } catch (e: Exception) {
-                // Nếu lỗi index, fallback query không orderBy
                 Log.w(TAG, "Query với orderBy thất bại, thử không orderBy: ${e.message}")
                 firestore.collection("notes")
                     .whereEqualTo("userId", userId)
