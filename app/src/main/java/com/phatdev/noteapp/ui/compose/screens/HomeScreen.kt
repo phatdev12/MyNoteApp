@@ -31,7 +31,6 @@ fun HomeScreen(
     isLoading: Boolean,
     onNoteClick: (Note) -> Unit,
     onAddNoteClick: () -> Unit,
-    onProfileClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -50,22 +49,18 @@ fun HomeScreen(
             .background(Color.White)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // Header - paddingHorizontal 20dp, paddingTop 48dp, paddingBottom 24dp
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
                     .padding(top = 48.dp, bottom = 24.dp)
             ) {
-                // Title "Ghi chú" hoặc userName - 32sp bold
                 Text(
                     text = if (userName.isNotEmpty()) userName else "Ghi chú",
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = TextPrimary
                 )
-
-                // Search Bar - marginTop 20dp, height 48dp, bg_input_field (radius 12dp)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -183,20 +178,6 @@ fun HomeScreen(
                         text = "Ghi chú",
                         color = TextPrimary,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp
-                    )
-                }
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .clickable { onProfileClick() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Hồ sơ",
-                        color = TextTertiary,
                         fontSize = 14.sp
                     )
                 }

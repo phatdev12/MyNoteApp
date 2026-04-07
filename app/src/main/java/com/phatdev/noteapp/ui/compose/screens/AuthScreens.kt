@@ -159,10 +159,7 @@ fun LoginScreen(
             }
         }
 
-        // marginTop 24dp - center horizontal
         Spacer(modifier = Modifier.height(24.dp))
-
-        // "Chưa có tài khoản? " + "Đăng ký" (bold)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
@@ -208,10 +205,8 @@ fun RegisterScreen(
             .verticalScroll(rememberScrollState())
             .padding(24.dp)
     ) {
-        // Space 40dp
         Spacer(modifier = Modifier.height(40.dp))
 
-        // "Tạo tài khoản" - 32sp bold
         Text(
             text = "Tạo tài khoản",
             fontSize = 32.sp,
@@ -219,7 +214,6 @@ fun RegisterScreen(
             color = TextPrimary
         )
 
-        // "Đăng ký để bắt đầu" - marginTop 8dp
         Text(
             text = "Đăng ký để bắt đầu",
             fontSize = 16.sp,
@@ -227,10 +221,8 @@ fun RegisterScreen(
             modifier = Modifier.padding(top = 8.dp)
         )
 
-        // marginTop 40dp
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Error message
         errorMessage?.let {
             Text(
                 text = it,
@@ -245,7 +237,6 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Họ và tên
         OutlinedTextField(
             value = fullName,
             onValueChange = { fullName = it },
@@ -266,7 +257,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Email
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -288,7 +278,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Mật khẩu
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -320,7 +309,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Xác nhận mật khẩu
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
@@ -360,7 +348,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Button Đăng ký
         Button(
             onClick = { onRegister(email, password, fullName) },
             modifier = Modifier
@@ -392,7 +379,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // "Đã có tài khoản? " + "Đăng nhập"
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,

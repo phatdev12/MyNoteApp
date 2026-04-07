@@ -9,7 +9,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import androidx.lifecycle.lifecycleScope
 import com.phatdev.noteapp.data.models.Note
-import com.phatdev.noteapp.data.models.User
 import com.phatdev.noteapp.data.repository.CloudinaryRepository
 import com.phatdev.noteapp.data.repository.FirebaseRepository
 import com.phatdev.noteapp.ui.compose.screens.*
@@ -54,9 +53,6 @@ class ComposeMainActivity : ComponentActivity() {
                     },
                     onAddNoteClick = {
                         startActivity(Intent(this@ComposeMainActivity, ComposeNoteDetailActivity::class.java))
-                    },
-                    onProfileClick = {
-                        startActivity(Intent(this@ComposeMainActivity, ComposeProfileActivity::class.java))
                     },
                     onLogoutClick = {
                         repository.logout()
@@ -109,7 +105,6 @@ class ComposeLoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         repository = FirebaseRepository(this)
 
-        // Check if already logged in
         if (repository.getCurrentUserId() != null) {
             startActivity(Intent(this, ComposeMainActivity::class.java))
             finish()
@@ -296,87 +291,6 @@ class ComposeNoteDetailActivity : ComponentActivity() {
             }.onFailure { e ->
                 Toast.makeText(this, "Lỗi: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-}
-
-class ComposeProfileActivity : ComponentActivity() {
-
-    private lateinit var repository: FirebaseRepository
-    private lateinit var cloudinaryRepository: CloudinaryRepository
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        repository = FirebaseRepository(this)
-        cloudinaryRepository = CloudinaryRepository(this)
-
-        setContent {
-            NoteAppTheme {
-                var user by remember { mutableStateOf<User?>(null) }
-                var isLoading by remember { mutableStateOf(true) }
-                var isSaving by remember { mutableStateOf(false) }
-                var notesCount by remember { mutableIntStateOf(0) }
-                var imagesCount by remember { mutableIntStateOf(0) }
-
-                LaunchedEffect(Unit) {
-                    repository.getCurrentUserId()?.let { userId ->
-                        repository.getUserProfile(userId).onSuccess { loadedUser ->
-                            user = loadedUser
-                        }
-                        repository.getNotesByUserId(userId).onSuccess { notes ->
-                            notesCount = notes.size
-                            imagesCount = notes.count { it.imageUrl.isNotEmpty() }
-                        }
-                        isLoading = false
-                    } ?: run {
-                        isLoading = false
-                    }
-                }
-
-                ProfileScreen(
-                    user = user,
-                    isLoading = isLoading,
-                    isSaving = isSaving,
-                    notesCount = notesCount,
-                    imagesCount = imagesCount,
-                    onSave = { fullName, imageUri ->
-                        isSaving = true
-                        lifecycleScope.launch {
-                            saveProfile(fullName, imageUri, user)
-                            isSaving = false
-                            finish()
-                        }
-                    },
-                    onBack = { finish() },
-                    onLogout = {
-                        repository.logout()
-                        startActivity(Intent(this@ComposeProfileActivity, ComposeLoginActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        })
-                        finish()
-                    }
-                )
-            }
-        }
-    }
-
-    private suspend fun saveProfile(fullName: String, imageUri: Uri?, currentUser: User?) {
-        val userId = repository.getCurrentUserId() ?: return
-
-        var profileImageUrl = currentUser?.profileImageUrl ?: ""
-
-        imageUri?.let { uri ->
-            cloudinaryRepository.uploadImage(uri).onSuccess { uploadedUrl ->
-                profileImageUrl = uploadedUrl
-            }.onFailure { e ->
-                Toast.makeText(this, "Lỗi upload ảnh: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        repository.updateUserProfile(userId, fullName, profileImageUrl).onSuccess {
-            Toast.makeText(this, "Đã cập nhật hồ sơ", Toast.LENGTH_SHORT).show()
-        }.onFailure { e ->
-            Toast.makeText(this, "Lỗi: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }
